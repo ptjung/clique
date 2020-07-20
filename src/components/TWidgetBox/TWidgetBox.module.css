@@ -1,0 +1,87 @@
+@import url("https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css");
+
+/*
+Options:
+    - Search Bar (bSearch)
+*/
+.bSearch:focus {
+    border-color: inherit;
+    border: 1px solid rgb(30, 33, 216);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.widboxContainer {
+    margin: 0 auto;
+    min-height: 50px;
+    max-width: 100%;
+    padding: 10px 10px;
+}
+
+.createButton {
+    box-shadow: none !important;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+}
+
+.refreshButton {
+    box-shadow: none !important;
+}
+
+.separatorTop {
+    padding-top: 100px;
+    position: relative;
+}
+
+.separatorBot {
+    padding-bottom: 100px;
+    position: relative;
+}
+
+.captionSeparator {
+    padding-left: 25px;
+}
+
+.widgetDivider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.widgetSeparator {
+    padding-left: 15px;
+}
+
+.tableSeparator {
+    padding-bottom: 30px;
+}
+
+.formSeparator {
+    padding: 7px;
+}
+
+.lock {
+    text-align: center; 
+    vertical-align: middle;
+}
+
+.columnHeader {
+    outline: none;
+}
+
+.roomNameCaption {
+    margin: 0 0;
+    font-weight: 700;
+    white-space: nowrap;
+}

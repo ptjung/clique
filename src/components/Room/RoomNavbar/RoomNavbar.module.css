@@ -1,0 +1,105 @@
+/*
+Room Bar Setup
+*/
+.roomBar {
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 2;
+    top: 0;
+    padding: 0 0;
+}
+.roomBarContainer {
+    position: relative;
+    overflow: visible;
+    margin: 0 20px;
+    width: 100%;
+    height: 55px;
+}
+.roomBarContent {
+    height: 100%;
+    /* overflow: hidden; */
+    white-space: nowrap;
+}
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/*
+Navbar's Header & Footer
+
+i.e. left-right
+*/
+.navLeft, .navRight {
+    width: 10%;
+    min-width: 50px;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.navCenter {
+    width: 80%;
+    min-width: 200px;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+}
+.barWrapper {
+    margin: 0 auto;
+    display: inline-flex;
+}
+.barInputGroup {
+    margin: auto;
+}
+.searchForm {
+    border-radius: 2px !important;
+    box-shadow: none !important;
+    transition: 0s;
+}
+.searchForm:focus {
+    border-color: #88b;
+}
+.searchButton {
+    width: 65px;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+    border-color: #ddd;
+    background-color: #fcfcfc;
+    background-image: linear-gradient(#fcfcfc, #f7f7f7);
+}
+.searchButton:hover {
+    background-image: linear-gradient(#efefef, #eaeaea);
+}
+.searchButton:hover:active {
+    background-image: linear-gradient(#dfdfdf, #dadada);
+}
+
+/*
+Media Screen Breakpoints
+*/
+@media screen and (min-width: 1200px) {
+    .barInputGroup {
+        width: 750px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .barInputGroup {
+        width: 550px;
+    }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    .barInputGroup {
+        width: 400px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .barInputGroup {
+        width: 80%;
+        min-width: 250px;
+    }
+}

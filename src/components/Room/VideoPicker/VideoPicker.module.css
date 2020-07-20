@@ -1,0 +1,9 @@
+.videoPicker {
+    background-color: #f7f7f7;
+    list-style-type: none;
+    margin: 100px auto;
+    border-radius: 5px 5px;
+    padding: 0;
+    text-align: center;
+    display: table;
+}

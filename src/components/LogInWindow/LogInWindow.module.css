@@ -1,0 +1,102 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type=checkbox] {
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.logInWrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.logInBox {
+    margin: auto;
+    max-width: 100%;
+    width: 500px;
+    min-width: 500px;
+    height: 400px;
+    overflow-wrap: break-word;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px #cccccc;
+    background-color: #fefefe;
+}
+
+.iconContainer {
+    height: 25%;
+    text-align: center;
+    /* background-color: #eeeeee; */
+}
+
+.iconHelper {
+    display: inline-block;
+    height: 100%;
+}
+
+.icon {
+    vertical-align: middle;
+}
+
+.iconTextContainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+.formWrapper {
+    padding: 5%;
+    text-align: center;
+}
+
+.formInputSeparator {
+    padding: 15px;
+}
+
+.formInput {
+    width: 100%;
+}
+
+.formCheckSubContainer {
+    text-align: left;
+}
+
+.checkboxContainer {
+    padding: 0 0;
+    margin: 0 0;
+    font-size: 16px;
+}
+
+.logInContainer {
+    position: relative;
+    display: flex;
+    height: 42.5px;
+}
+
+.logInButton {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: 40px;
+}
+
+.errorMessage {
+    width: 400px;
+    height: 45px;
+    text-align: center;
+    margin: 0 auto;
+    color: #dd0000;
+}

@@ -1,0 +1,35 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.chatBar {
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 2;
+    bottom: 0;
+    padding: 0 0;
+    float: right;
+}
+.chatBarContainer {
+    position: relative;
+    overflow: visible;
+    width: 0;
+    height: 96px;
+}
+.chatToggleIcon {
+    height: 64px;
+    width: 64px;
+    margin-right: 32px;
+    background-image: url(/widget_chat_toggle.png);
+    transition: 0.3s;
+    float: right;
+    cursor: pointer;
+}
+.chatToggleIcon:hover {
+    background-image: url(/widget_chat_toggle_hover.png);
+}

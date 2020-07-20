@@ -1,0 +1,56 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.aboutboxContainer {
+    margin: 0 auto;
+    min-height: 50px;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    padding: 10px 10px;
+}
+
+.separatorTop {
+    padding-top: 200px;
+    position: relative;
+}
+
+.brand {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.separatorButtonTop {
+    padding-top: 150px;
+    position: relative;
+}
+
+.roomButton {
+    width: calc(5% + 150px);
+    left: 0;
+    right: 0;
+    top: 40%;
+    margin: auto;
+    position: absolute;
+    box-shadow: none !important;
+}
+
+.logoSeries {
+    display: flex;
+    justify-content:space-between;
+    position:relative;
+}
+
+.logo {
+    object-fit: contain;
+    width: 17.5%;
+}

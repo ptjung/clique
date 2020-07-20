@@ -1,0 +1,91 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type=checkbox] {
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.signUpWrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.signUpBox {
+    margin: auto;
+    max-width: 100%;
+    width: 500px;
+    min-width: 500px;
+    height: 700px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px #cccccc;
+    background-color: #fefefe;
+}
+
+.iconContainer {
+    height: 17.5%;
+    text-align: center;
+    /* background-color: #eeeeee; */
+}
+
+.iconHelper {
+    display: inline-block;
+    height: 100%;
+}
+
+.icon {
+    vertical-align: middle;
+}
+
+.iconTextContainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+.formWrapper {
+    padding: 5%;
+    text-align: center;
+}
+
+.formInputSeparator {
+    padding: 15px;
+}
+
+.formInput {
+    width: 100%;
+}
+
+.formCheckSubContainer {
+    text-align: left;
+}
+
+.checkboxContainer {
+    padding: 0 0;
+    margin: 0 0;
+    font-size: 16px;
+}
+
+.signUpContainer {
+    position: relative;
+    display: flex;
+    height: 85px;
+    border-top: 1px solid #bbbbbb;
+}
+
+.signUpButton {
+    position: absolute;
+    bottom:   0;
+    width: 100px;
+    height: 45px;
+}

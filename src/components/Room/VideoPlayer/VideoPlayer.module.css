@@ -1,0 +1,123 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.videoWrapper {
+    position: relative;
+}
+.controlsBar {
+    width: 100%;
+    height: 32px;
+    position: relative;
+    background-color: #222;
+}
+.timeNavBar {
+    width: 100%;
+    height: 7px;
+    top: -7px;
+    position: absolute;
+    cursor: pointer;
+}
+.progressBar {
+    height: 7px;
+    border-radius: 0 !important;
+    background-color: #aaa;
+}
+.progressBar > div {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.playerWidget {
+    background-color: #222;
+    color: #e7e7e7;
+    height: 100%;
+    font-size: 18px;
+    border: 0;
+    transition: 0.3s;
+}
+.playerWidget:focus {
+    outline: none;
+}
+.playerWidget:hover {
+    color: white;
+}
+.playButton {
+    border-right: 1px #333 solid;
+    float: left;
+    width: 64px;
+}
+.volumeWidget {
+    border-right: 1px #333 solid;
+    height: 100%;
+    float: left;
+}
+.volumeButton {
+    text-align: center;
+    float: left;
+    padding-bottom: 2px;
+    width: 48px;
+}
+.volumeIcon {
+    height: 16px;
+    width: 16px;
+    margin: 0 auto;
+    background-image: url(/widget_ico_volume_idle.png);
+    transition: 0.3s;
+}
+.volumeButton:hover > .volumeIcon {
+    background-image: url(/widget_ico_volume_hover.png);
+}
+.volumeScrollBarWrapper {
+    position: relative;
+    transition: 0s;
+    float: left;
+    margin-right: 20px;
+    width: 72px;
+}
+.volumeScrollBarWrapper > * {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.volumeScrollBar,
+.volumeScrollBarBg {
+    background-color: #e7e7e7;
+    border-radius: 1px 1px;
+    width: 100%;
+    height: 4px;
+}
+.volumeScrollBarBg {
+    background-color: #555;   
+}
+.volumeScrollBarKnob {
+    right: -6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50% 50%;
+    background-color: white;
+}
+.timeCaption {
+    border-right: 1px #333 solid;
+    float: left;
+    line-height: 34px;
+    padding: 0 20px;
+    font-size: 14px;
+}
+.timeCaption:hover {
+    color: #e7e7e7;
+}
+.fullScreenButton {
+    border-left: 1px #333 solid;
+    float: right;
+    width: 48px;
+}

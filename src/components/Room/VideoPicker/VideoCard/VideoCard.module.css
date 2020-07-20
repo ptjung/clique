@@ -1,0 +1,37 @@
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.videoCard {
+    box-shadow: 3px 3px 8px 1px #888;
+    height: 200px;
+    width: 175px;
+    cursor: pointer;
+    
+    display: inline-block;
+    margin: 12.5px;
+}
+.videoTitleWrapper {
+    min-height: 72px;
+    max-height: 72px;
+    overflow: hidden;
+    padding: 8px;
+}
+.videoTitleText {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+}
+.videoAuthorText {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-align: right;
+    font-size: 14px;
+    height: 29px;
+    padding: 4px 10px;
+}

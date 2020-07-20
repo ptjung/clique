@@ -1,0 +1,134 @@
+/*
+Navbar Setup
+
+i.e. whole, container, separators
+*/
+.navbar {
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 2;
+    top: 0;
+    padding: 0 0;
+}
+.navbarContainer {
+    overflow: visible; /* hidden; */
+    height: 55px;
+    margin: 0 auto;
+    /* max-width: 100%; */
+    padding-right: 5px;
+}
+.navIconSeparator {
+    padding: 10px;
+}
+.navSeparator {
+    padding: 3px;
+}
+.unselectable {
+    user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/*
+Navbar's Header & Footer
+
+i.e. left-right
+*/
+.navLeft {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.navRight {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    float: right;
+}
+
+/*
+Miscellaneous Items:
+    - Brand Icon (bIcon)
+    - Capsule Buttons (capsule)
+    - Square Buttons (sqButton)
+*/
+.bIcon {
+    padding: 5px 5px;
+    display: inline-block;
+    height: 100%;
+}
+.capsule {
+    width: 100px;
+    line-height: 20px;
+    border-radius: 20%/50%;
+    font-weight: bold;
+    box-shadow: none !important;
+}
+.delayed {
+    height: 34px;
+    background-color: #d7d7d7;
+}
+.sqButton {
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    font-size: 16px;
+    border-radius: 30%;
+    font-weight: bold;
+    box-shadow: none !important;
+}
+.sqButton:after {
+    display: none;
+}
+
+/*
+Website Buttons Styling (Black):
+    - Default: not hovering, never pressed
+    - Darker 1: hovering, never pressed
+    - Darker 2: hovering and pressed
+*/
+.bWebsite {
+    width: 80px;
+    border: 0px;
+}
+.bWebsite:not(.hover) {
+    background-color: #f9f9f9;
+}
+.bWebsite:not(.active):hover {
+    background-color: #e5e5e5;
+}
+.bWebsite:focus:hover {
+    background-color: #c2c2c2 !important;
+}
+
+/*
+Login Button Styling (Blue + Outline):
+    - Inherent: not hovering
+    - Darker 1: hovering, never pressed
+    - Darker 2: hovering and pressed
+
+Signup Button Styling Changes:
+    - Darker: hovering and pressed
+*/
+.bLogin:not(.hover) {
+    background-color: #f8f9fa;
+}
+.bLogin:hover {
+    color: #007bff;
+    background-color: #ddeeff;
+}
+.bLogin:active {
+    color:#007bff !important;
+    background-color:#b5dcff !important;
+}
+.bSignUp:hover {
+    background-color: #0061cf !important;
+}
+.bSignUp:active:hover {
+    background-color: #003f88 !important;
+}

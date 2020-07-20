@@ -1,0 +1,14 @@
+/*
+Video Player
+*/
+.videoPlayer {
+    margin: 0 auto;
+}
+.videoPlayerWrapper {
+    display: flex;
+    margin-top: 50px;
+}
+.pickerContainer {
+    margin: 0 auto;
+    padding: 0 50px;
+}

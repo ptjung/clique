@@ -1,0 +1,19 @@
+.formSeparator {
+    padding: 10px;
+    width: auto;
+}
+
+.contentContainer {
+    display: inline-block !important;
+    justify-content: space-between;
+    position: relative;
+}
+
+.contentBox {
+    object-fit: contain;
+    width: 17.5%;
+}
+
+.closeButton:focus {
+    outline: none;
+}

@@ -1,0 +1,15 @@
+module.exports = {
+    JOIN_ROOM: 'JOIN_ROOM',
+    REQ_VIDEO: 'REQ_VIDEO',
+    END_VIDEO: 'END_VIDEO',
+    SET_VID: 'SET_VID',
+    RESP_MSG: 'RESP_MSG',
+    SEND_MSG: 'SEND_MSG',
+    SET_MSGS: 'SET_MSGS',
+    UPD_MSGS: 'UPD_MSGS',
+    GET_VTIME: 'GET_VTIME',
+    SET_VTIME: 'SET_VTIME',
+    NAV_VTIME: 'NAV_VTIME',
+    GET_USERS: 'GET_USERS',
+    SET_PLAY: 'SET_PLAY'
+}

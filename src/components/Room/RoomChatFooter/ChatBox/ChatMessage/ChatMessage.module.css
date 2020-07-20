@@ -1,0 +1,21 @@
+.chatMsgBox {
+    padding: 6px 15px;
+    margin: 10px;
+    border-radius: 5px 5px;
+    background-color: #f2f2f9;
+}
+.chatMsgHeader,
+.chatMsgContent {
+    font-size: 12px;
+}
+.chatMsgHeader {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.chatMsgTimestamp {
+    color: #aaa;
+    margin-left: 8px;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 11px;
+}
