@@ -53,7 +53,7 @@ function tryCreateRoom(paramHost, paramHostId, paramName, paramPassword, paramUs
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (/users/auth): " + err);
+            // console.log("Failed (/users/auth): " + err);
         });
 }
 

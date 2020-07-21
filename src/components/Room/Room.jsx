@@ -10,7 +10,7 @@ import urlChecker from 'is-url';
 import styles from './Room.module.css';
 import axios from 'axios';
 import io from "socket.io-client";
-import { JOIN_ROOM, REQ_VIDEO, END_VIDEO, SET_VID, RESP_MSG, SEND_MSG, SET_MSGS, UPD_MSGS, GET_VTIME, SET_VTIME, NAV_VTIME, GET_USERS, SET_PLAY } from '../../Constants';
+import { JOIN_ROOM, REQ_VIDEO, END_VIDEO, SET_VID, RESP_MSG, SEND_MSG, SET_MSGS, UPD_MSGS, GET_VTIME, SET_VTIME, NAV_VTIME, GET_USERS, SET_PLAY, SEND_NTCE } from '../../Constants';
 
 
 
@@ -105,7 +105,7 @@ function Room(props) {
     This function tracks any skips which occur in the socket. Expects a parameter being a value between 0 and the video's length.
     */
     const handleSkipTrack = (paramSkipTime) => {
-        console.log("Room > Skip to: " + paramSkipTime)
+        // console.log("Room > Skip to: " + paramSkipTime)
         setSkipTime(paramSkipTime);
     }
 
@@ -209,7 +209,6 @@ function Room(props) {
             let realName = "";
             let dispName = "";
             let isOwner = false;
-            console.log(1);
             await axios.post(process.env.REACT_APP_API_URL + "/api/rooms/userinfo", {roomCode: creds.roomCode, userId: creds.userId})
                 .then(resUserObject => {
                     if (resUserObject && resUserObject.data) {
@@ -219,9 +218,8 @@ function Room(props) {
                     }
                 })
                 .catch(err => console.log(err));
-            console.log(2);
             setUserMetadata({realName: realName, dispName: dispName, isOwner: isOwner});
-            console.log(`Room > {roomCode: ${creds.roomCode}, userId: ${creds.userId}, realName: ${realName}, dispName: ${dispName}, isOwner: ${isOwner}}`);
+            // console.log(`Room > {roomCode: ${creds.roomCode}, userId: ${creds.userId}, realName: ${realName}, dispName: ${dispName}, isOwner: ${isOwner}}`);
 
             if (dispName) {
                 // Somebody joined the room; has a real name, display name, and some privileges
@@ -233,6 +231,7 @@ function Room(props) {
                     isOwner: isOwner
                 });
                 socket.emit(GET_USERS);
+                socket.emit(SEND_NTCE, { msgContent: `*${dispName + (realName ? (" (" + realName + ")") : "")}* has joined the room.` });
             }
             else {
                 // Return to /rooms if anonymous (i.e. this person does not have a cookie)
@@ -255,7 +254,7 @@ function Room(props) {
 
         socket.on(GET_USERS, (data) => {
             if (data.userCount) {
-                console.log("User Count: " + data.userCount);
+                // console.log("User Count: " + data.userCount);
                 setRoomUserCount(data.userCount);
             }
         });
@@ -268,17 +267,21 @@ function Room(props) {
 
         socket.on(NAV_VTIME, (data) => {
             if (data.newTime !== undefined) {
-                console.log("Room > NAV_VTIME (recv): newTime = " + data.newTime);
+                // console.log("Room > NAV_VTIME (recv): newTime = " + data.newTime);
                 setSkipTime(data.newTime);
             }
         });
 
         socket.on(RESP_MSG, (data) => {
-            console.log(data.respJoin);
+            // console.log(data.respJoin);
         });
 
         socket.on(SEND_MSG, (data) => {
             sendMessage(data.senderDisp, data.senderReal, data.senderIsOwner, data.msgContent, data.currMsgList);
+        });
+
+        socket.on(SEND_NTCE, (data) => {
+            sendNotice(data.msgContent, data.currMsgList);
         });
 
         socket.on(SET_MSGS, (data) => {
@@ -292,7 +295,7 @@ function Room(props) {
     useEffect(() => {
         if (!roomVideo) {
             // Initialize a playing video if the Room does not contain a video yet
-            console.log("Room > setRoomVideo: videoId = " + (roomSocket.current ? roomSocket.current.videoId : INITIAL_VIDEO_ID));
+            // console.log("Room > setRoomVideo: videoId = " + (roomSocket.current ? roomSocket.current.videoId : INITIAL_VIDEO_ID));
             setRoomVideo(roomSocket.current ? roomSocket.current.videoId : INITIAL_VIDEO_ID);
         }
     }, [roomVideo]);
@@ -302,7 +305,7 @@ function Room(props) {
     */
     useEffect(() => {
         const socket = roomSocket.current || io(process.env.REACT_APP_API_URL);
-        console.log("Room > NAV_VTIME (sent): newTime = " + skipTime);
+        // console.log("Room > NAV_VTIME (sent): newTime = " + skipTime);
         socket.emit(NAV_VTIME, {
             newTime: skipTime
         });
@@ -315,7 +318,7 @@ function Room(props) {
         const socket = roomSocket.current || io(process.env.REACT_APP_API_URL);
         socket.off(GET_VTIME);
         socket.on(GET_VTIME, () => {
-            console.log("Room > GET_VTIME: currVideoTime = " + currVideoTime);
+            // console.log("Room > GET_VTIME: currVideoTime = " + currVideoTime);
             socket.emit(SET_VTIME, {
                 currVideoTime: currVideoTime
             });

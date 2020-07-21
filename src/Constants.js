@@ -11,5 +11,6 @@ module.exports = {
     SET_VTIME: 'SET_VTIME',
     NAV_VTIME: 'NAV_VTIME',
     GET_USERS: 'GET_USERS',
-    SET_PLAY: 'SET_PLAY'
+    SET_PLAY: 'SET_PLAY',
+    SEND_NTCE: 'SEND_NTCE'
 }

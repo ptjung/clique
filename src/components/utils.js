@@ -99,7 +99,7 @@ const removeRoomUser = (guestId, roomCode) => {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (5): " + err);
+            console.log("Failed (6): " + err);
         });
 }
 

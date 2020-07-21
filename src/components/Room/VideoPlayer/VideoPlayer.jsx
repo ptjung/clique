@@ -85,7 +85,7 @@ function VideoPlayer(props) {
     }
 
     const skipToTime = (paramDuration) => {
-        console.log("Player > paramDuration = " + paramDuration);
+        // console.log("Player > paramDuration = " + paramDuration);
         clearInterval(intervalId);
         setCurrVideoDuration(paramDuration);
         playerTarget.current.seekTo(paramDuration, true);
@@ -115,13 +115,12 @@ function VideoPlayer(props) {
         // Note to self: I may need to set more references to playerTarget later; one video had it not updating
         playerTarget.current = evt.target;
         modifyPlayState(true);
-        // evt.target.mute(); // Mute video just because. Deleter this line later.
-        console.log("Player > Initialized");
+        // console.log("Player > Initialized");
     };
 
     const handleStateChange = (evt) => {
         const newPlayerState = evt.data;
-        console.log("Player > State: " + playerState + " => " + newPlayerState + ", Playing: " + currPlaying);
+        // console.log("Player > State: " + playerState + " => " + newPlayerState + ", Playing: " + currPlaying);
 
         switch (newPlayerState) {
             case V_PLAY:
@@ -176,7 +175,7 @@ function VideoPlayer(props) {
                         // Already executed the "onStart" event for single user rooms
                         setExecOnStart(false);
                     }
-                    console.log("Player > startTime = " + props.startTime);
+                    // console.log("Player > startTime = " + props.startTime);
                 }
                 break;
             default:
@@ -192,10 +191,10 @@ function VideoPlayer(props) {
     }, [props.isPlaying]);
 
     useEffect(() => {
-        console.log("Player > playerTarget.current = " + playerTarget.current);
+        // console.log("Player > playerTarget.current = " + playerTarget.current);
         if (playerTarget.current) {
             const playState = currPlaying;
-            console.log("Player > playState = " + currPlaying);
+            // console.log("Player > playState = " + currPlaying);
             if (playState) {
                 playerTarget.current.playVideo();
             }

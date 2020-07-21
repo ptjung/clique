@@ -13,15 +13,16 @@ function ChatBox(props) {
     const sendToBottom = () => {
         const msgBoxNode = document.getElementById("msgBoxScrollable");
         if (msgBoxNode) {
-            // Upon adding a message to the message list, scroll to the bottom (i.e. current chat)
-            msgBoxNode.scrollTop = msgBoxNode.scrollHeight;
+            // Upon adding a message to the message list, scroll to the bottom after all updates (i.e. current chat)
+            setTimeout(() => {
+                msgBoxNode.scrollTop = msgBoxNode.scrollHeight
+            }, 1);
         }
     }
 
     const handleSend = () => {
-        console.log(`ChatBox > "${dispName || "Anonymous"}", "${realName}", "${ownerPriv}"`);
+        // console.log(`ChatBox > "${dispName || "Anonymous"}", "${realName}", "${ownerPriv}"`);
         if (chatInput) {
-            // chatInput, sender
             props.handleSendMsg(dispName || "Anonymous", realName, ownerPriv, chatInput);
             setChatInput("");
         }

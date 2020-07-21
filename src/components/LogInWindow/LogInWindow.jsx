@@ -30,7 +30,7 @@ function getSessionPerm(email, password) {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (/users/auth): " + err);
+            // console.log("Failed (/users/auth): " + err);
         });
 }
 

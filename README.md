@@ -3,6 +3,8 @@
 
 
 
-## Website Description
+## Description
+Clique is a web application which allows users to make rooms and watch videos in real-time together. This is heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b> and was built with MongoDB, Express.js, React, Node.js, Socket.IO and jQuery.
 
-Web application for making rooms and watching videos in real-time. This is heavily inspired by [https://www.watch2gether.com/](Watch2Gether).
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

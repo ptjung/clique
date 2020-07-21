@@ -14,7 +14,7 @@ function renewSession(email) {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (/users/auth): " + err);
+            // console.log("Failed (/users/auth): " + err);
         });
 }
 

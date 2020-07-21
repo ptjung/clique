@@ -85,7 +85,20 @@ input[type=checkbox] {
 
 .signUpButton {
     position: absolute;
-    bottom:   0;
+    bottom: 0;
     width: 100px;
-    height: 45px;
+    height: 40px;
+}
+
+.backButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100px;
+    height: 40px;
+}
+
+.termsCaption:hover {
+    cursor: pointer;
+    color: #00e;
 }

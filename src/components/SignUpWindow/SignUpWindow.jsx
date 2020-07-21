@@ -50,7 +50,7 @@ function sendAccountRequest(username, email, password) {
         "email": email
       })
       .catch(err => {
-        console.log("Failed (/users/add): " + err);
+        // console.log("Failed (/users/add): " + err);
       });
 }
 
@@ -63,7 +63,7 @@ function getSessionPerm(email) {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (/users/auth): " + err);
+            // console.log("Failed (/users/auth): " + err);
         });
 }
 
@@ -127,7 +127,7 @@ function SignUpWindow() {
                             <label className={cx("container", styles.checkboxContainer)} style={{paddingLeft: '5px'}}>
                                 <input id="termsCheckbox" type="checkbox" />
                                 &nbsp;&nbsp;&nbsp;
-                                By signing up, you agree to our <a href="#" onClick={() => launchTerms()}>Terms of Service</a>.
+                                By signing up, you agree to our <span className={styles.termsCaption} onClick={() => launchTerms()}><b>Terms of Service</b></span>.
                                 <span className={styles.checkmark}></span>
                             </label>
                         </div>
@@ -160,6 +160,11 @@ function SignUpWindow() {
                                 setPassConfErrStatus(inputPassConfTest);
                             }}>
                                 Sign Up
+                            </Button>
+                            <Button variant="secondary" className={styles.backButton} onClick={() => {
+                                window.location.href = "/rooms";
+                            }}>
+                                Back
                             </Button>
                         </div>
                     </Form>
