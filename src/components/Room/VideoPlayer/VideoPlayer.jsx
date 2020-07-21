@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import { V_UNSTARTED, V_END, V_PLAY, V_PAUSE, V_BUFFER, V_CUE } from './VideoStates';
@@ -17,7 +17,7 @@ function VideoPlayer(props) {
 
     const [volScrollMaxWidth, iconPlay, iconPause, videoOptions] = [72, '\u25b6', '\u275a\u275a', {
         height: '488',
-        width: '800',
+        width: `800`,
         playerVars: {
             origin: `${window.location.protocol}//${window.location.host}`,
             enablejsapi: 1,

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
 import VideoCard from './VideoCard/VideoCard';
 import styles from './VideoPicker.module.css';
-import axios from 'axios';
-import cx from 'classnames';
 
 function VideoPicker(props) {
     const [videoCards, setVideoCards] = useState([]);

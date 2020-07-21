@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import ChatBox from './ChatBox/ChatBox';
 import styles from './RoomChatFooter.module.css';
-import axios from 'axios';
 import cx from 'classnames';
 
 function RoomChatFooter(props) {

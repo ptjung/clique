@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ChatMessage.module.css';
-import axios from 'axios';
-import cx from 'classnames';
 
 function ChatMessage(props) {
     const [content, setContent] = useState("");

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import React from 'react';
+import { Card } from 'react-bootstrap';
 import styles from './VideoCard.module.css';
 import cx from 'classnames';
 

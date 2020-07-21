@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import styles from './RoomNavbar.module.css';
-import axios from 'axios';
 import cx from 'classnames';
 
 function RoomNavbar(props) {

@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatMessage from './ChatMessage/ChatMessage';
 import styles from './ChatBox.module.css';
-import axios from 'axios';
 import cx from 'classnames';
 
 function ChatBox(props) {

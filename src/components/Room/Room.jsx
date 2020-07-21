@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef, useCallback, createRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import RoomNavbar from './RoomNavbar/RoomNavbar';
 import VideoPicker from './VideoPicker/VideoPicker';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 import RoomChatFooter from './RoomChatFooter/RoomChatFooter';
-import ChatMessage from './RoomChatFooter/ChatBox/ChatMessage/ChatMessage';
 import Footer from '../Footer/Footer';
 import queryString from 'query-string';
 import urlChecker from 'is-url';
@@ -29,7 +28,7 @@ function Room(props) {
     const [isUserAllowed, setIsUserAllowed] = useState(false);
     const [videoResults, setVideoResults] = useState([]);
     const [msgList, setMsgList] = useState([]);
-    const INITIAL_VIDEO_ID = "9uRvv6CA6sQ";
+    const INITIAL_VIDEO_ID = "bfpPArfDTGw";
     const MAX_CHAT_MESSAGES = 100;
 
     /*
