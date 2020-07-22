@@ -61,12 +61,12 @@
   },
   "scripts": {
     "scss": "node-sass --watch scss -o css",
-    "start": "react-scripts start && node lib/server",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "package": "webpack -p --config webpack.config.js --progress --colors",
-    "deploy": "npm run package && npm start"
+    "deploy": "npm run package"
   },
   "eslintConfig": {
     "extends": "react-app"
