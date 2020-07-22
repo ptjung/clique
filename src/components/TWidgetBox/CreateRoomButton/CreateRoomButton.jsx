@@ -85,7 +85,7 @@ function CreateRoomButton() {
     useEffect(() => {
         async function setupButton() {
             let resSession = await utils.getSession();
-            if (resSession.data) {
+            if (resSession && resSession.data) {
                 setIsUserLoggedIn(true);
             }
         

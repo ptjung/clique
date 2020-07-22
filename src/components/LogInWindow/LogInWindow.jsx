@@ -42,7 +42,7 @@ function LogInWindow() {
     useEffect(() => {
         async function redirectOnLogin() {
             let resSession = await utils.getSession();
-            if (resSession.data && !showError) {
+            if (resSession && resSession.data && !showError) {
                 // Test for valid session data in this attempt as well as the current session
                 window.location.href = "/rooms";
             }

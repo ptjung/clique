@@ -12,7 +12,7 @@ function Navbar() {
     useEffect(() => {
         async function setupNavbar() {
             let resSession = await utils.getSession();
-            if (resSession.data) {
+            if (resSession && resSession.data) {
                 setUserCaption(resSession.data.username);
             }
             setButtonsReady(true);

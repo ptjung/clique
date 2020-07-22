@@ -168,7 +168,9 @@ class TWidgetBox extends Component {
             // Modal permissions setup before row events
             const setupModalPerms = async () => {
                 let resSession = await utils.getSession();
-                this.setState({rowData: this.state.rowData, sessData: resSession.data});
+                if (resSession && resSession.data) {
+                    this.setState({rowData: this.state.rowData, sessData: resSession.data});
+                }
             }
             await setupModalPerms();
 
