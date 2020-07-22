@@ -65,7 +65,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "webpack -p"
+    "package": "webpack -p --progress --colors",
+    "deploy": "npm run package && npm start"
   },
   "eslintConfig": {
     "extends": "react-app"
