@@ -51,6 +51,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-youtube": "^7.11.2",
+    "serve": "^11.3.2",
     "set-interval": "^2.0.4",
     "sjcl": "^1.0.8",
     "socket.io": "^2.3.0",
@@ -60,13 +61,12 @@
     "yarn": "^1.22.4"
   },
   "scripts": {
-    "scss": "node-sass --watch scss -o css",
-    "start": "react-scripts start",
-    "build": "react-scripts build && npm run build",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "package": "webpack -p --config webpack.config.js --progress --colors",
-    "deploy": "npm run package"
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
