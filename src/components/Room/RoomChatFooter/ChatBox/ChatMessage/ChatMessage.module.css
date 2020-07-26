@@ -6,6 +6,7 @@
 .chatMsgHeader,
 .chatMsgContent {
     font-size: 12px;
+    overflow-wrap: break-word;
 }
 .chatMsgHeader {
     font-weight: bold;
