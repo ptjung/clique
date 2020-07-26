@@ -9,7 +9,7 @@ import urlChecker from 'is-url';
 import styles from './Room.module.css';
 import axios from 'axios';
 import io from "socket.io-client";
-import { JOIN_ROOM, REQ_VIDEO, END_VIDEO, SET_VID, RESP_MSG, SEND_MSG, SET_MSGS, UPD_MSGS, GET_VTIME, SET_VTIME, NAV_VTIME, GET_USERS, SET_PLAY, SEND_NTCE } from '../../Constants';
+import { JOIN_ROOM, REQ_VIDEO, END_VIDEO, SET_VID, SEND_MSG, SET_MSGS, UPD_MSGS, GET_VTIME, SET_VTIME, NAV_VTIME, GET_USERS, SET_PLAY, SEND_NTCE } from '../../Constants';
 
 
 
@@ -28,7 +28,7 @@ function Room(props) {
     const [isUserAllowed, setIsUserAllowed] = useState(false);
     const [videoResults, setVideoResults] = useState([]);
     const [msgList, setMsgList] = useState([]);
-    const INITIAL_VIDEO_ID = "bfpPArfDTGw";
+    const INITIAL_VIDEO_ID = "V5QukAC-jqE";
     const MAX_CHAT_MESSAGES = 100;
 
     /*
@@ -192,7 +192,9 @@ function Room(props) {
                     setVideoResults(searchResultsArr);
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                // console.log(err);
+            });
     }
 
     /*
@@ -216,9 +218,10 @@ function Room(props) {
                         isOwner = resUserObject.data.isOwner;
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    // console.log(err);
+                });
             setUserMetadata({realName: realName, dispName: dispName, isOwner: isOwner});
-            // console.log(`Room > {roomCode: ${creds.roomCode}, userId: ${creds.userId}, realName: ${realName}, dispName: ${dispName}, isOwner: ${isOwner}}`);
 
             if (dispName) {
                 // Somebody joined the room; has a real name, display name, and some privileges
@@ -269,10 +272,6 @@ function Room(props) {
                 // console.log("Room > NAV_VTIME (recv): newTime = " + data.newTime);
                 setSkipTime(data.newTime);
             }
-        });
-
-        socket.on(RESP_MSG, (data) => {
-            // console.log(data.respJoin);
         });
 
         socket.on(SEND_MSG, (data) => {

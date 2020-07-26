@@ -1,6 +1,9 @@
 {
   "name": "clique",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "author": "PtJung (Patrick Jung)",
+  "description": "Web application for creating rooms and watching videos with people!",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.0",

@@ -1,9 +1,16 @@
-import axios from 'axios';
+/**
+ * This file exports utility helper functions used to clean up front-end code.
+ * 
+ * @author: PtJung (Patrick Jung)
+ * @requires axios
+ */
+
+ import axios from 'axios';
 
 /**
  * This function returns the response of getting users from the server
  * 
- * @return {Object} The reponse from GET (...)/users
+ * @return {Object} The reponse from GET (...)/api/users
  */
 const getUsersResponse = () => {
     return axios.get(process.env.REACT_APP_API_URL + "/api/users")
@@ -11,14 +18,14 @@ const getUsersResponse = () => {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (1): " + err);
+            // console.log("Failed (1): " + err);
         });
 }
 
 /**
  * This function returns the response of getting rooms from the server
  * 
- * @return {Object} The reponse from GET (...)/rooms
+ * @return {Object} The reponse from GET (...)/api/rooms
  */
 const getRoomsResponse = () => {
     return axios.get(process.env.REACT_APP_API_URL + "/api/rooms")
@@ -26,17 +33,17 @@ const getRoomsResponse = () => {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (2): " + err);
+            // console.log("Failed (2): " + err);
         });
 }
 
 /**
  * This function creates a session and returns its data
  * 
- * @return {Object} The reponse from GET (...)users/auth/verify
+ * @return {Object} The reponse from GET (...)/api/users/auth/verify
  */
 const getSession = () => {
-    return axios.get(process.env.REACT_APP_API_URL + "/api/users/auth/verify") //, {withCredentials: true}
+    return axios.get(process.env.REACT_APP_API_URL + "/api/users/auth/verify")
         .then(async (res) => {
             let retrieved = await axios.post(process.env.REACT_APP_API_URL + "/api/users/auth/retrieve", {id: res.data.id});
             if (retrieved.data && res) {
@@ -45,7 +52,7 @@ const getSession = () => {
             return retrieved;
         })
         .catch(err => {
-            console.log("Failed (3): " + err);
+            // console.log("Failed (3): " + err);
         });
 }
 
@@ -54,16 +61,16 @@ const getSession = () => {
  * 
  * @param {String} paramCode - The room code
  * @param {String} paramId - The user's unique ID
- * @return {Object} The reponse from POST (...)/users/auth/obtain
+ * @return {Object} The reponse from POST (...)/api/users/auth/obtain
  */
 const createRoomSession = (paramCode, paramId) => {
     return axios.post(process.env.REACT_APP_API_URL + "/api/users/roomauth/obtain", {code: paramCode, id: paramId})
-        .then(async (res) => {
+        .then(async () => {
             let payload = await axios.post(process.env.REACT_APP_API_URL + "/api/users/roomauth/verify");
             return payload;
         })
         .catch(err => {
-            console.log("Failed (4): " + err);
+            // console.log("Failed (4): " + err);
         });
 }
 
@@ -74,7 +81,7 @@ const createRoomSession = (paramCode, paramId) => {
  * @param {String} guestNameDisp - The guest's display / initial name
  * @param {String} guestId - The guest's unique ID
  * @param {String} roomCode - The room code
- * @return {Object} The reponse from PATCH (...)/rooms/enter
+ * @return {Object} The reponse from PATCH (...)/api/rooms/enter
  */
 const addRoomUser = (guestNameReal, guestNameDisp, guestId, roomCode) => {
     return axios.patch(process.env.REACT_APP_API_URL + "/api/rooms/enter", {dispName: guestNameDisp, roomCode: roomCode, guestName: guestNameReal, guestId: guestId})
@@ -82,7 +89,7 @@ const addRoomUser = (guestNameReal, guestNameDisp, guestId, roomCode) => {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (5): " + err);
+            // console.log("Failed (5): " + err);
         });
 }
 
@@ -91,7 +98,7 @@ const addRoomUser = (guestNameReal, guestNameDisp, guestId, roomCode) => {
  * 
  * @param {String} guestId - The guest's unique ID
  * @param {String} roomCode - The room code
- * @return {Object} The reponse from PATCH (...)/rooms/enter
+ * @return {Object} The reponse from PATCH (...)/api/rooms/enter
  */
 const removeRoomUser = (guestId, roomCode) => {
     return axios.patch(process.env.REACT_APP_API_URL + "/api/rooms/leave", {roomCode: roomCode, guestId: guestId})
@@ -99,12 +106,12 @@ const removeRoomUser = (guestId, roomCode) => {
             return res.data;
         })
         .catch(err => {
-            console.log("Failed (6): " + err);
+            // console.log("Failed (6): " + err);
         });
 }
 
 /**
- * This function generates a non-intersecting, unique ID
+ * This function provides a time-unique serial code made up of only lowercase, alphanumeric characters. It is used for creating user IDs.
  * 
  * @return {String} The unique ID
  */
@@ -112,4 +119,5 @@ const genUniqueId = () => {
     return "?" + (new Date()).getTime().toString(36);
 }
 
+// Exports all of the functions as an object of functions
 export default {getUsersResponse, getRoomsResponse, getSession, createRoomSession, addRoomUser, removeRoomUser, genUniqueId};

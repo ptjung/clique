@@ -10,14 +10,15 @@ function VideoPlayer(props) {
     const [playerState, setPlayerState] = useState(-1);
     const [currVideoDuration, setCurrVideoDuration] = useState(0);
     const [maxVideoDuration, setMaxVideoDuration] = useState(0);
+    const [startFallbackLoopId, setStartFallbackLoopId] = useState(0);
     const [intervalId, setIntervalId] = useState(0);
     const [volScroll, setVolScroll] = useState(false);
     const [currPlaying, setCurrPlaying] = useState(false);
     const [execOnStart, setExecOnStart] = useState(true);
 
-    const [volScrollMaxWidth, iconPlay, iconPause, videoOptions] = [72, '\u25b6', '\u275a\u275a', {
-        height: '488',
-        width: `800`,
+    const [MAX_FALLBACK_RETRIES, VOL_SCROLL_MAX_WIDTH, iconPlay, iconPause, videoOptions] = [100, 72, '\u25b6', '\u275a\u275a', {
+        height: 488,
+        width: 800,
         playerVars: {
             origin: `${window.location.protocol}//${window.location.host}`,
             enablejsapi: 1,
@@ -27,6 +28,29 @@ function VideoPlayer(props) {
             modestbranding: 1
         },
     }];
+
+    const startVideoHere = (paramTarget, paramBaseTime) => {
+        let fallbackRetries = 0;
+
+        clearInterval(startFallbackLoopId);
+        const fallbackNoStart = setInterval(() => {
+            if (paramBaseTime && paramTarget.getPlayerState() === V_PLAY) {
+                paramTarget.seekTo(paramBaseTime + ((new Date()).getTime() - props.offsetExecTime) / 1000, true);
+                setExecOnStart(false);
+                clearInterval(fallbackNoStart);
+            }
+            else if (fallbackRetries++ >= MAX_FALLBACK_RETRIES) {
+                clearInterval(fallbackNoStart);
+            }
+        }, 100);
+        setStartFallbackLoopId(fallbackNoStart);
+    }
+
+    useEffect(() => {
+        if (playerTarget.current && execOnStart) {
+            startVideoHere(playerTarget.current, props.startTime);
+        }
+    }, [props.startTime]);
 
     const modifyPlayState = (paramPlayState) => {
         setCurrPlaying(paramPlayState);
@@ -51,8 +75,10 @@ function VideoPlayer(props) {
         playerTarget.current.getIframe().requestFullscreen();
     }
 
+    /*
+    This function was solely to enable compatibility for all versions of IE
+    */
     const padStart = (paramString, paramChar, paramMaxLen) => {
-        // padStart: IE (all versions) compatibility
         let padding = "";
         for (let charCount = 0; charCount < (paramMaxLen - paramString.length); charCount++) {
             padding += paramChar;
@@ -104,10 +130,10 @@ function VideoPlayer(props) {
             const volumeBarNode = document.querySelector("#volumeScrBar");
             const volumeBarProps = volumeBarNode.getBoundingClientRect();
 
-            const posAdjustment = Math.min(Math.max(evt.clientX - volumeBarProps.left, 0), volScrollMaxWidth);
+            const posAdjustment = Math.min(Math.max(evt.clientX - volumeBarProps.left, 0), VOL_SCROLL_MAX_WIDTH);
             volumeKnobNode.style.left = `${posAdjustment - 6}px`;
             volumeBarNode.style.width = `${posAdjustment}px`;
-            playerTarget.current.setVolume(100 * posAdjustment / volScrollMaxWidth);
+            playerTarget.current.setVolume(100 * posAdjustment / VOL_SCROLL_MAX_WIDTH);
         }
     };
 
@@ -141,12 +167,15 @@ function VideoPlayer(props) {
                     // Illegal screen interaction
                     evt.target.playVideo();
                 }
+                // Joining users when paused will have their player sync to the current paused time
+                props.timeHandler(currVideoDuration);
                 break;
             case V_END:
                 clearInterval(intervalId);
                 modifyPlayState(false);
                 setCurrVideoDuration(maxVideoDuration);
                 props.endObserver(maxVideoDuration);
+                props.timeHandler(0);
                 break;
             case V_BUFFER:
                 clearInterval(intervalId);
@@ -163,13 +192,7 @@ function VideoPlayer(props) {
                     evt.target.playVideo();
                     if (execOnStart && (props.userCount > 1)) {
                         // Execute "onStart" event for multiple user rooms
-                        const fallbackNoStart = setInterval(() => {
-                            if (evt.target.getPlayerState() === V_PLAY) {
-                                evt.target.seekTo(props.startTime + ((new Date()).getTime() - props.offsetExecTime) / 1000, true);
-                                setExecOnStart(false);
-                                clearInterval(fallbackNoStart);
-                            }
-                        }, 100);
+                        startVideoHere(evt.target, props.startTime);
                     }
                     else if (props.userCount === 1) {
                         // Already executed the "onStart" event for single user rooms
@@ -232,7 +255,8 @@ function VideoPlayer(props) {
                           onContextMenu={(evt) => {evt.preventDefault()}} />
                     </button>
                     <div className={cx(styles.volumeScrollBarWrapper, styles.playerWidget)} style={{display: volScroll ? 'block' : 'none'}}>
-                        <div className={styles.volumeScrollBarBg} />
+                        <div className={styles.volumeScrollBarBg}
+                          onClick={(evt) => handleVolumeKnobDrag(evt)} onMouseDown={(evt) => handleVolumeKnobDrag(evt)} />
                         <div id="volumeScrBar" className={styles.volumeScrollBar}
                           onClick={(evt) => handleVolumeKnobDrag(evt)} onMouseDown={(evt) => handleVolumeKnobDrag(evt)} />
                         <div id="volumeKnob" className={styles.volumeScrollBarKnob} draggable="true"

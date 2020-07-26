@@ -31,22 +31,40 @@ function JoinRoomModal(props) {
     const isRoomFull = props.rowData[2].userCountCurr === props.rowData[2].userCountMax; // TEMP: Disable the 'Join' button for full rooms
     const isPassEnabled = props.rowData[3].length > 0;
     const sessData = props.sessData;
+    const isGuest = !(sessData && sessData._id);
+
+    const handleJoin = async () => {
+        const inputNameTest = handleInputName(nameInput).indexOf(true);
+        const inputPassOK = handleInputPass(isPassEnabled, passInput, props.rowData[3]);
+
+        if ((inputNameTest === -1 || (inputNameTest === 0 && !isGuest)) && inputPassOK) {
+            const chosenId = (props.sessData && props.sessData._id) ? props.sessData._id : utils.genUniqueId();
+            const dispName = nameInput;
+            const realName = (props.sessData && props.sessData.username) ? props.sessData.username : "";
+            await utils.addRoomUser(realName, dispName || realName, chosenId, props.rowData[4]);
+            await utils.createRoomSession(props.rowData[4], chosenId);
+            window.location.pathname += `/${props.rowData[4]}`;
+            return;
+        }
+        setNameErrStatus(!isGuest ? (inputNameTest === 0 ? -1 : inputNameTest) : inputNameTest);
+        setPassErrStatus(!inputPassOK);
+    }
 
     useEffect(() => {
 
         // 'Join' button given click event: attempt to join with fixed cooldown
         $('#joinButton').unbind(JOIN_EVENT_EXEC);
-        $('#joinButton').on(JOIN_EVENT_EXEC, function() {
+        $('#joinButton').on(JOIN_EVENT_EXEC, () => {
             let pressedButton = $(this);
-            pressedButton.attr('disabled',true);
+            pressedButton.attr('disabled', true);
             window.setTimeout(function () { 
-                pressedButton.attr('disabled',false);
+                pressedButton.attr('disabled', false);
             }, 500);
         });
 
         // Reset Modal fields upon given event (MODAL_EVENT_EXEC)
         $('#joinRoomModal').unbind(MODAL_EVENT_EXEC);
-        $('#joinRoomModal').on(MODAL_EVENT_EXEC, function (e) {
+        $('#joinRoomModal').on(MODAL_EVENT_EXEC, () => {
             setNameErrStatus(-1);
             setPassErrStatus(false);
             setNameInput("");
@@ -71,16 +89,16 @@ function JoinRoomModal(props) {
                     <Form>
                         <div className={cx("modal-content", styles.contentContainer)} style={{padding: '1rem'}}>
                             <span className={styles.contentBox}>
-                                    <TextField id="formNameInput" label="Display Name" type="text" variant="outlined" size="small" value={nameInput} required={!sessData}
-                                    onChange={(evt) => setNameInput(evt.target.value)}
-                                    error={nameErrStatus >= 0}
-                                    helperText={(nameErrStatus >= 0) ? NAME_INPUT_MESSAGES[nameErrStatus] : ' '} />
+                                    <TextField id="formNameInput" label="Display Name" type="text" variant="outlined" size="small" value={nameInput} required={isGuest}
+                                      onChange={(evt) => setNameInput(evt.target.value)}
+                                      error={nameErrStatus >= 0}
+                                      helperText={(nameErrStatus >= 0) ? NAME_INPUT_MESSAGES[nameErrStatus] : ' '} />
                                     <span className={styles.formSeparator} />
                                     <TextField id="formPassInput" label="Password" type="text" variant="outlined" size="small" value={passInput}
-                                    style={{display: isPassEnabled ? 'inline-block' : 'none', float: 'right'}}
-                                    onChange={(evt) => setPassInput(evt.target.value)}
-                                    error={passErrStatus}
-                                    helperText={passErrStatus ? PASS_INPUT_MESSAGE : ' '} />
+                                      style={{display: isPassEnabled ? 'inline-block' : 'none', float: 'right'}}
+                                      onChange={(evt) => setPassInput(evt.target.value)}
+                                      error={passErrStatus}
+                                      helperText={passErrStatus ? PASS_INPUT_MESSAGE : ' '} />
                             </span>
                             <div className={styles.formSeparator} />
                             <span className={styles.contentBox}>
@@ -100,22 +118,10 @@ function JoinRoomModal(props) {
                             <Button id="joinButton" variant="primary" type="submit"
                               disabled={isRoomFull}
                               title={isRoomFull ? "This room is full!" : ""}
-                              onClick={async () => {
-                                const inputNameTest = handleInputName(nameInput).indexOf(true);
-                                const inputPassOK = handleInputPass(isPassEnabled, passInput, props.rowData[3]);
-
-                                if ((inputNameTest === -1 || (inputNameTest === 0 && sessData)) && inputPassOK) {
-                                    const chosenId = props.sessData ? props.sessData._id : utils.genUniqueId();
-                                    const dispName = nameInput;
-                                    const realName = props.sessData ? props.sessData.username : "";
-                                    await utils.addRoomUser(realName, dispName || realName, chosenId, props.rowData[4]);
-                                    await utils.createRoomSession(props.rowData[4], chosenId);
-                                    window.location.pathname += `/${props.rowData[4]}`;
-                                    return;
-                                }
-                                setNameErrStatus(sessData ? (inputNameTest === 0 ? -1 : inputNameTest) : inputNameTest);
-                                setPassErrStatus(!inputPassOK);
-                            }}>
+                              onClick={(evt) => {
+                                  evt.preventDefault();
+                                  handleJoin();
+                              }}>
                                 Join
                             </Button>
                         </div>

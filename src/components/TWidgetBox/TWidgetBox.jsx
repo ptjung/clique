@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Button, ButtonGroup } from 'react-bootstrap';
 import CreateRoomButton from './CreateRoomButton/CreateRoomButton';
 import JoinRoomModal from './JoinRoomModal/JoinRoomModal';
@@ -60,19 +60,24 @@ function swapRatioElements(x, y) {
  * 
  * @param {boolean} isSuccessAlertOn Flag for alerting the website upon success
  */
-function updateRoomTable(isSuccessAlertOn) {
+async function updateRoomTable(isSuccessAlertOn) {
+
     utils.getRoomsResponse().then(dataInJSON => {
 
         // Invalid input handling: alert the user in UI
         if (dataInJSON === undefined) {
             $('#failedAPICallAlert').show();
             $('#successAPICallAlert').hide();
-            setTimeout(function(){ $('#failedAPICallAlert').hide() }, ALERT_LIFETIME);
+            setTimeout(() => {
+                $('#failedAPICallAlert').hide();
+            }, ALERT_LIFETIME);
             return;
         }
         else if (isSuccessAlertOn) {
             $('#successAPICallAlert').show();
-            setTimeout(function(){ $('#successAPICallAlert').hide() }, ALERT_LIFETIME);
+            setTimeout(() => {
+                $('#successAPICallAlert').hide();
+            }, ALERT_LIFETIME);
         }
         $('#failedAPICallAlert').hide();
 
@@ -119,130 +124,139 @@ const FailedAPICallAlert = () => {
     )
 }
 
-class TWidgetBox extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            rowData: ["", "", {userCountCurr: 0, userCountMax: 0}, "", ""],
-            sessData: {_id: "", username: "", email: "", exp: 0}
-        };
+function TWidgetBox(props) {
+    const [rowData, setRowData] = useState(["", "", {userCountCurr: 0, userCountMax: 0}, "", ""]);
+    const [sessData, setSessData] = useState({_id: "", username: "", email: "", exp: 0});
+
+    const setupRows = async ($) => {
+
+        // Form table with specific column constraints
+        let table = $('#roomTable').DataTable({
+            order: [],
+            language: {
+                emptyTable: " "
+            },
+            columnDefs: [{
+                targets: [0, 1, 2],
+                className: styles.unselectable
+            }, {
+                targets: 2,
+                searchable: false,
+                type: 'userratio',
+                render: (data) => {
+                    return `${data['userCountCurr']}/${data['userCountMax']}`;
+                }
+            }, {
+                targets: 3,
+                searchable: false,
+                className: styles.lock,
+                render: (data) => {
+                    return (data === '') ? '' : '<img src="/lock.png" className={styles.unselectable} alt="Locked" draggable="false" onContextMenu={function (e) {e.preventDefault()}} />';
+                }
+            }]
+        });
+
+        // Rooms 'Row' button given click event; pass table data into state, re-rendering the shown modal
+        // Note: here, a parameterized arrow function must be used; two scopes of 'this' are needed!
+        $('#roomTable tbody').on(ROW_EVENT_EXEC, 'tr', (evt) => {
+            let newRowData = table.row(evt.target).data();
+            if (newRowData) {
+                setRowData(newRowData);
+                $('#joinRoomModal').modal('show');
+            }
+        });
+        $('#roomTable tbody').css('cursor', 'pointer');
+
     }
 
-    componentDidMount() {
-        $(document).ready(async () => {
+    useEffect(() => {
+        $(document).ready(() => {
             $.noConflict();
             
-            // Sorting elements based on room user count (see: swapRatioElements())
-            $.fn.dataTable.ext.oSort["userratio-asc"] = function (x, y) {
-                return -swapRatioElements(x, y);
-            }
-            $.fn.dataTable.ext.oSort["userratio-desc"] = function (x, y) {
-                return swapRatioElements(x, y);
-            };
+            if ( !$.fn.DataTable.isDataTable('#roomTable') ) {
+                
+                // Sorting elements based on room user count (see: swapRatioElements())
+                $.fn.dataTable.ext.oSort["userratio-asc"] = function (x, y) {
+                    return -swapRatioElements(x, y);
+                };
+                $.fn.dataTable.ext.oSort["userratio-desc"] = function (x, y) {
+                    return swapRatioElements(x, y);
+                };
 
-            // Form table with specific column constraints
-            let table = $('#roomTable').DataTable({
-                order: [],
-                language: {
-                    emptyTable: " "
-                },
-                columnDefs: [{
-                    targets: [0, 1, 2],
-                    className: styles.unselectable
-                }, {
-                    targets: 2,
-                    searchable: false,
-                    type: 'userratio',
-                    render: function ( data, type, row, meta ) {
-                        return `${data['userCountCurr']}/${data['userCountMax']}`;
-                }}, {
-                    targets: 3,
-                    searchable: false,
-                    className: styles.lock,
-                    render: function ( data, type, row, meta ) {
-                        return (data === '') ? '' : '<img src="/lock.png" className={styles.unselectable} alt="Locked" draggable="false" onContextMenu={function (e) {e.preventDefault()}} />';
-                }}]
-            });
-            updateRoomTable(false);
+                setupRows($);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (props.userPermitted) {
 
             // Modal permissions setup before row events
             const setupModalPerms = async () => {
                 let resSession = await utils.getSession();
                 if (resSession && resSession.data) {
-                    this.setState({rowData: this.state.rowData, sessData: resSession.data});
+                    setSessData(resSession.data);
                 }
+                updateRoomTable(false);
             }
-            await setupModalPerms();
-
-            // Rooms 'Row' button given click event; pass table data into state, re-rendering the shown modal
-            // Note: here, a parameterized arrow function must be used; two scopes of 'this' are needed!
-            $('#roomTable tbody').on(ROW_EVENT_EXEC, 'tr', (evt) => {
-                let rowData = table.row(evt.target).data();
-                if (rowData !== undefined) {
-                    this.setState({rowData: rowData, sessData: this.state.sessData});
-                    $('#joinRoomModal').modal('show');
-                }
-            });
-            $('#roomTable tbody').css('cursor', 'pointer');
-        });
-    }
+            setupModalPerms();
+        }
+    }, [props.userPermitted]);
     
-    render() {
-        return (
+    return (
 
-            <div id="widboxContainer" className={styles.widboxContainer}>
-                <JoinRoomModal rowData={this.state.rowData} sessData={this.state.sessData} />
-                <div style={{height: '40px'}}>
-                    <FailedAPICallAlert />
-                    <SuccessAPICallAlert />
-                </div>
-                <div className={styles.separatorTop} />
-                <span className={styles.widgetDivider}>
-                    <h2 className={cx(styles.unselectable, styles.roomNameCaption)}>
-                        Room List
-                    </h2>
-                    <div className={styles.captionSeparator} />
-                    <ButtonGroup>
-                        <Button variant="outline-dark" className={cx(styles.unselectable, styles.refreshButton)} id="tableRefreshButton" onClick={() => {
-                            // 'Refresh' button given click event: attempt to get rooms with cooldown
-                            updateRoomTable(true);
-
-                            let pressedButton = document.getElementById('tableRefreshButton');
-                            pressedButton.disabled = true;
-                            window.setTimeout(() => { 
-                                pressedButton.disabled = false;
-                            }, ALERT_LIFETIME);
-                        }}>
-                            Refresh
-                        </Button>
-                        <CreateRoomButton />
-                    </ButtonGroup>
-                </span>
-                <br />
-
-                <table id="roomTable" className="hover order-column row-border" style={{width: '100%'}}>
-                    <thead>
-                        <tr style={{outline: 'none'}}>
-                            <th style={{width: '45%'}} className={styles.columnHeader}>
-                                Room Name
-                            </th>
-                            <th style={{width: '25%'}} className={styles.columnHeader}>
-                                Host
-                            </th>
-                            <th style={{width: '15%'}} className={styles.columnHeader}>
-                                Users
-                            </th>
-                            <th style={{width: '15%'}} className={styles.columnHeader}>
-                                Password
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-                <div className={styles.separatorBot} />
+        <div id="widboxContainer" className={styles.widboxContainer}>
+            <JoinRoomModal rowData={rowData} sessData={sessData} />
+            <div style={{height: '40px'}}>
+                <FailedAPICallAlert />
+                <SuccessAPICallAlert />
             </div>
+            <div className={styles.separatorTop} />
+            <span className={styles.widgetDivider}>
+                <h2 className={cx(styles.unselectable, styles.roomNameCaption)}>
+                    Room List
+                </h2>
+                <div className={styles.captionSeparator} />
+                <ButtonGroup>
+                    <Button variant="outline-dark" className={cx(styles.unselectable, styles.refreshButton)} id="tableRefreshButton" onClick={() => {
+                        // 'Refresh' button given click event: attempt to get rooms with cooldown
+                        updateRoomTable(true);
 
-        )
-    }
+                        let pressedButton = document.getElementById('tableRefreshButton');
+                        pressedButton.disabled = true;
+                        window.setTimeout(() => { 
+                            pressedButton.disabled = false;
+                        }, ALERT_LIFETIME);
+                    }}>
+                        Refresh
+                    </Button>
+                    <CreateRoomButton />
+                </ButtonGroup>
+            </span>
+            <br />
+
+            <table id="roomTable" className="hover order-column row-border" style={{width: '100%'}}>
+                <thead>
+                    <tr style={{outline: 'none'}}>
+                        <th style={{width: '45%'}} className={styles.columnHeader}>
+                            Room Name
+                        </th>
+                        <th style={{width: '25%'}} className={styles.columnHeader}>
+                            Host
+                        </th>
+                        <th style={{width: '15%'}} className={styles.columnHeader}>
+                            Users
+                        </th>
+                        <th style={{width: '15%'}} className={styles.columnHeader}>
+                            Password
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div className={styles.separatorBot} />
+        </div>
+
+    )
 }
 
 export default TWidgetBox;

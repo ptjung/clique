@@ -13,9 +13,11 @@ const LOGIN_EVENT_EXEC = "click";
 async function getAccountObj(identifier) {
     let accountObject;
     await utils.getUsersResponse().then(dataInJSON => {
-        accountObject = dataInJSON.find(account =>
-            (account.username.toUpperCase() === identifier.toUpperCase()) ||
-            (account.email === identifier.toUpperCase()));
+        if (dataInJSON) {
+            accountObject = dataInJSON.find(account =>
+                (account.username.toUpperCase() === identifier.toUpperCase()) ||
+                (account.email === identifier.toUpperCase()));
+        }
     });
     return accountObject;
 }

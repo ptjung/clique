@@ -137,11 +137,15 @@ function SignUpWindow() {
                                 let inputNameTest = -1;
                                 await handleInputName(nameInput)
                                         .then((res) => inputNameTest = res.indexOf(true))
-                                        .catch((err) => console.log(err));
+                                        .catch((err) => {
+                                            // console.log(err);
+                                        });
                                 let inputEmailTest = -1;
                                 await handleInputEmail(emailInput)
                                         .then((res) => inputEmailTest = res.indexOf(true))
-                                        .catch((err) => console.log(err));
+                                        .catch((err) => {
+                                            // console.log(err);
+                                        });
                                 const inputPassTest = handleInputPass(passInput).indexOf(true);
                                 const inputPassConfTest = (passInput !== passConfInput);
                                 const termsChecked = document.getElementById('termsCheckbox').checked;

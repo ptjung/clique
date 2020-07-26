@@ -1,26 +1,41 @@
-import React from 'react';
+/**
+ * This file defines the basis of the Clique front-end.
+ * 
+ * @author: PtJung (Patrick Jung)
+ * @requires react
+ * @requires react-router-dom
+ * @requires bootstrap.min.css
+ */
+
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
-import './App.css';
+import { Navbar, AboutBox, TWidgetBox, SignUpWindow, LogInWindow, SessionResetModal, TermsBox, Footer, Room, Permitter } from './components';
 
-import { Navbar, AboutBox, TWidgetBox, SignUpWindow, LogInWindow, SessionResetModal, TermsBox, Footer, Room } from './components';
-
+/**
+ * This component acts as the main wrapper for all of the routes and components.
+ * 
+ * @function MainWrapper
+ */
 function MainWrapper() {
+    const [permitted, setPermitted] = useState(false);
+
     return (
         <Router>
+            <Permitter setPermitted={setPermitted} />
             <SessionResetModal />
             
             <Route exact path='/' render={() =>
                 <div>
-                    <Navbar />
+                    <Navbar userPermitted={permitted} />
                     <AboutBox />
                     <Footer />
                 </div>
             } />
             <Route exact path='/rooms' render={() =>
                 <div>
-                    <Navbar />
-                    <TWidgetBox />
+                    <Navbar userPermitted={permitted} />
+                    <TWidgetBox userPermitted={permitted} />
                     <Footer />
                 </div>
             } />
@@ -31,7 +46,7 @@ function MainWrapper() {
             } />
             <Route exact path='/terms' render={() =>
                 <div>
-                    <Navbar />
+                    <Navbar userPermitted={permitted} />
                     <TermsBox />
                     <Footer />
                 </div>
@@ -53,4 +68,5 @@ function MainWrapper() {
     );
 }
 
+// Export the main wrapper as a component
 export default MainWrapper;

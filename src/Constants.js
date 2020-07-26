@@ -1,9 +1,9 @@
+// String constants for Socket.IO emitting purposes
 module.exports = {
     JOIN_ROOM: 'JOIN_ROOM',
     REQ_VIDEO: 'REQ_VIDEO',
     END_VIDEO: 'END_VIDEO',
     SET_VID: 'SET_VID',
-    RESP_MSG: 'RESP_MSG',
     SEND_MSG: 'SEND_MSG',
     SET_MSGS: 'SET_MSGS',
     UPD_MSGS: 'UPD_MSGS',

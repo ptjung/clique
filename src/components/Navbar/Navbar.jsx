@@ -5,20 +5,23 @@ import utils from '../utils';
 import cx from 'classnames';
 import axios from 'axios';
 
-function Navbar() {
+function Navbar(props) {
     const [userCaption, setUserCaption] = useState("");
     const [buttonsReady, setButtonsReady] = useState(false);
 
     useEffect(() => {
-        async function setupNavbar() {
-            let resSession = await utils.getSession();
-            if (resSession && resSession.data) {
-                setUserCaption(resSession.data.username);
+        if (props.userPermitted) {
+            // Buttons are initially not ready; after a permit response, the buttons will become ready
+            async function setupNavbar() {
+                let resSession = await utils.getSession();
+                if (resSession && resSession.data) {
+                    setUserCaption(resSession.data.username);
+                }
+                setButtonsReady(true);
             }
-            setButtonsReady(true);
+            setupNavbar();
         }
-        setupNavbar();
-    });
+    }, [props.userPermitted]);
 
     return (
 
