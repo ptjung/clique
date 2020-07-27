@@ -3,11 +3,10 @@
  * 
  * @author: PtJung (Patrick Jung)
  * @requires react
- * @requires react-router-dom
- * @requires bootstrap.min.css
+ * @requires react-dom
  */
 
- import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
