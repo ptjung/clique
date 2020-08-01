@@ -176,8 +176,8 @@ function Room(props) {
     /*
     This function asynchronously requests the YouTube search of some query input, setting the video results of Room if possible.
     */
-    const getYTQuerySearch = async (paramQueryInput) => {
-        await axios.get('https://www.googleapis.com/youtube/v3/search', {
+    const getYTQuerySearch = async (paramQueryInput, proxy = 'https://cors-anywhere.herokuapp.com/') => {
+        await axios.get(proxy + 'https://www.googleapis.com/youtube/v3/search', {
             params: {
                 key: process.env.REACT_APP_YT_SECRET,
                 q: paramQueryInput,
