@@ -85,3 +85,16 @@ Options:
     font-weight: 700;
     white-space: nowrap;
 }
+
+.rowsToast {
+    position: fixed;
+    z-index: 2;
+    right: 0;
+    bottom: 10px;
+    margin: 20px;
+    float: right;
+}
+
+.rowsToast button[data-dismiss="toast"] {
+    outline: none;
+}

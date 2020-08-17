@@ -15,6 +15,10 @@
     
     display: inline-block;
     margin: 12.5px;
+    transition: 0.05s;
+}
+.videoCard:hover {
+    transform: scale(1.1);
 }
 .videoTitleWrapper {
     min-height: 72px;

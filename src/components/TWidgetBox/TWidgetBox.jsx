@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, ButtonGroup } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup, Toast } from 'react-bootstrap';
 import CreateRoomButton from './CreateRoomButton/CreateRoomButton';
 import JoinRoomModal from './JoinRoomModal/JoinRoomModal';
 import styles from './TWidgetBox.module.css';
@@ -125,6 +125,7 @@ const FailedAPICallAlert = () => {
 }
 
 function TWidgetBox(props) {
+    const [showToast, setShowToast] = useState(true);
     const [rowData, setRowData] = useState(["", "", {userCountCurr: 0, userCountMax: 0}, "", ""]);
     const [sessData, setSessData] = useState({_id: "", username: "", email: "", exp: 0});
 
@@ -204,57 +205,66 @@ function TWidgetBox(props) {
     }, [props.userPermitted]);
     
     return (
+        <>
+            <div id="widboxContainer" className={styles.widboxContainer}>
+                <JoinRoomModal rowData={rowData} sessData={sessData} />
+                <div style={{height: '40px'}}>
+                    <FailedAPICallAlert />
+                    <SuccessAPICallAlert />
+                </div>
+                <div className={styles.separatorTop} />
+                <span className={styles.widgetDivider}>
+                    <h2 className={cx(styles.unselectable, styles.roomNameCaption)}>
+                        Room List
+                    </h2>
+                    <div className={styles.captionSeparator} />
+                    <ButtonGroup>
+                        <Button variant="outline-dark" className={cx(styles.unselectable, styles.refreshButton)} id="tableRefreshButton" onClick={() => {
+                            // 'Refresh' button given click event: attempt to get rooms with cooldown
+                            updateRoomTable(true);
 
-        <div id="widboxContainer" className={styles.widboxContainer}>
-            <JoinRoomModal rowData={rowData} sessData={sessData} />
-            <div style={{height: '40px'}}>
-                <FailedAPICallAlert />
-                <SuccessAPICallAlert />
+                            let pressedButton = document.getElementById('tableRefreshButton');
+                            pressedButton.disabled = true;
+                            window.setTimeout(() => { 
+                                pressedButton.disabled = false;
+                            }, ALERT_LIFETIME);
+                        }}>
+                            Refresh
+                        </Button>
+                        <CreateRoomButton />
+                    </ButtonGroup>
+                </span>
+                <br />
+
+                <table id="roomTable" className="hover order-column row-border" style={{width: '100%'}}>
+                    <thead>
+                        <tr style={{outline: 'none'}}>
+                            <th style={{width: '45%'}} className={styles.columnHeader}>
+                                Room Name
+                            </th>
+                            <th style={{width: '25%'}} className={styles.columnHeader}>
+                                Host
+                            </th>
+                            <th style={{width: '15%'}} className={styles.columnHeader}>
+                                Users
+                            </th>
+                            <th style={{width: '15%'}} className={styles.columnHeader}>
+                                Password
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <div className={styles.separatorBot} />
             </div>
-            <div className={styles.separatorTop} />
-            <span className={styles.widgetDivider}>
-                <h2 className={cx(styles.unselectable, styles.roomNameCaption)}>
-                    Room List
-                </h2>
-                <div className={styles.captionSeparator} />
-                <ButtonGroup>
-                    <Button variant="outline-dark" className={cx(styles.unselectable, styles.refreshButton)} id="tableRefreshButton" onClick={() => {
-                        // 'Refresh' button given click event: attempt to get rooms with cooldown
-                        updateRoomTable(true);
-
-                        let pressedButton = document.getElementById('tableRefreshButton');
-                        pressedButton.disabled = true;
-                        window.setTimeout(() => { 
-                            pressedButton.disabled = false;
-                        }, ALERT_LIFETIME);
-                    }}>
-                        Refresh
-                    </Button>
-                    <CreateRoomButton />
-                </ButtonGroup>
-            </span>
-            <br />
-
-            <table id="roomTable" className="hover order-column row-border" style={{width: '100%'}}>
-                <thead>
-                    <tr style={{outline: 'none'}}>
-                        <th style={{width: '45%'}} className={styles.columnHeader}>
-                            Room Name
-                        </th>
-                        <th style={{width: '25%'}} className={styles.columnHeader}>
-                            Host
-                        </th>
-                        <th style={{width: '15%'}} className={styles.columnHeader}>
-                            Users
-                        </th>
-                        <th style={{width: '15%'}} className={styles.columnHeader}>
-                            Password
-                        </th>
-                    </tr>
-                </thead>
-            </table>
-            <div className={styles.separatorBot} />
-        </div>
+            <Toast className={styles.rowsToast} onClose={() => setShowToast(false)} show={showToast} delay={10000} animation={false} autohide>
+                <Toast.Header>
+                    <strong className="mr-auto">Notice</strong>
+                </Toast.Header>
+                <Toast.Body>
+                    If the rows ever act strangely, refresh the page!
+                </Toast.Body>
+            </Toast>
+        </>
 
     )
 }

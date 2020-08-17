@@ -28,7 +28,7 @@ function Room(props) {
     const [isUserAllowed, setIsUserAllowed] = useState(false);
     const [videoResults, setVideoResults] = useState([]);
     const [msgList, setMsgList] = useState([]);
-    const INITIAL_VIDEO_ID = "V5QukAC-jqE";
+    const INITIAL_VIDEO_ID = "e2qG5uwDCW4";
     const MAX_CHAT_MESSAGES = 100;
 
     /*
