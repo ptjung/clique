@@ -6,7 +6,7 @@
 Clique is a web application (heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b>) for users wanting to watch videos in real-time together. It uses a CRUD account system which allow users who signed up are allowed to create rooms. Each room comes with custom video player widgets, chat integration, and a search bar.
 
 ## Demo
-You can demo it [here](https://cliquepj.herokuapp.com/)! Alternatively, you may want to check out this GIF demo for seeing how two different users can interact:
+You can demo it [here](https://cliquepj.herokuapp.com/)! Alternatively, you may want to check out this GIF demo:
 
 ![](readme-demo/readme-demo-animated.gif)
 
@@ -24,7 +24,7 @@ npm i
 ```
 
 #### 2 - Environment Setup
-Create an `.env` file within the `Clique` directory. Then, fill in the following values for each of these keys:
+Create an `.env` file within the `Clique` directory. Then, fill in the values for each of the following keys:
 ```
 REACT_APP_ATLAS_URI - MongoDB connection URI
 REACT_APP_PORT - Port to run the server on
