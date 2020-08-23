@@ -3,7 +3,7 @@
 </p>
 <br />
 
-Clique is a web application (heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b>) for users wanting to watch videos in real-time together. It uses a CRUD account system which allow users who signed up are allowed to create rooms. Each room comes with custom video player widgets, chat integration, and a search bar.
+Clique is a web application (heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b>) for users wanting to watch videos in real-time together. It uses a CRUD account system which allow users who signed up to create rooms. Each room comes with custom video player widgets, chat integration, and a search bar.
 
 ## Demo
 You can demo it [here](https://cliquepj.herokuapp.com/)! Alternatively, you may want to check out this GIF demo:
@@ -16,11 +16,11 @@ You can demo it [here](https://cliquepj.herokuapp.com/)! Alternatively, you may 
 #### 1 - Installation
 For cloning and installing the packages on the frontend & backend:
 ```
-git clone https://github.com/PtJung/Clique.git
-cd Clique
-npm i
-cd lib
-npm i
+$ git clone https://github.com/PtJung/Clique.git
+$ cd Clique
+$ npm i
+$ cd lib
+$ npm i
 ```
 
 #### 2 - Environment Setup
@@ -39,8 +39,8 @@ REACT_APP_PERMIT_KEY - Secret
 #### 3 - Running
 From the `Clique` directory, run both of the following:
 ```
-node lib/server
-npm start
+$ node lib/server
+$ npm start
 ```
 
 ## Built With
