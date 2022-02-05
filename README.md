@@ -6,7 +6,7 @@
 Clique is a web application (heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b>) for users wanting to watch videos in real-time together. It uses a CRUD account system which allow users who signed up to create rooms. Each room comes with custom video player widgets, chat integration, and a search bar.
 
 ## Demo
-You can demo it [here](https://cliquepj.herokuapp.com/)! Alternatively, you may want to check out this GIF demo:
+This project is no longer being maintaned but you can still demo it [here](https://cliquepj.herokuapp.com/). Alternatively, you may want to check out this GIF demo:
 
 ![](readme-demo/readme-demo-animated.gif)
 
@@ -45,7 +45,7 @@ $ npm start
 
 ## Built With
 
-* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - For storing users and rooms in a databasae
+* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - For storing users and rooms in a database
 * [Express.js](https://expressjs.com/) - Executes most backend logic via REST API
 * [React](https://reactjs.org/) - Used to create most of the frontend
 * [Node.js](https://nodejs.org/) - The runtime in which Clique runs on
