@@ -6,7 +6,7 @@
 Clique is a web application (heavily inspired by <b>[Watch2Gether](https://www.watch2gether.com/)</b>) for users wanting to watch videos in real-time together. It uses a CRUD account system which allow users who signed up to create rooms. Each room comes with custom video player widgets, chat integration, and a search bar.
 
 ## Demo
-This project is no longer being maintaned but you can still demo it [here](https://cliquepj.herokuapp.com/).
+This project is no longer being maintained but you can still demo it [here](https://cliquepj.herokuapp.com/).
 
 Alternatively, you may want to check out this GIF demo:
 
