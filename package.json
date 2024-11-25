@@ -58,7 +58,7 @@
     "serve": "^11.3.2",
     "set-interval": "^2.0.4",
     "sjcl": "^1.0.8",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.3.0",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.10.3",
