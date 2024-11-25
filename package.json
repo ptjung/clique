@@ -27,7 +27,7 @@
     "datatables.net": "^1.10.21",
     "datatables.net-responsive-dt": "^2.2.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-jwt": "^5.3.3",
     "express-session": "^1.17.1",
     "is-url": "^1.2.4",
